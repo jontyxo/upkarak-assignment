@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import DatePicker from 'react-datepicker';
-import { CiCalendar,CiLocationOn  } from "react-icons/ci";
+import { CiLocationOn  } from "react-icons/ci";
 import { LuTicket } from "react-icons/lu";
 import { MdOutlineReduceCapacity,MdOutlineVisibility,MdApproval,MdOutlineEdit,MdArrowDropUp, MdArrowDropDown } from "react-icons/md";
-import SyncLoader from "react-spinners/SyncLoader";
 import { TiTick } from "react-icons/ti";
 import { SiGooglecalendar } from "react-icons/si";
 import { PiUserFill } from "react-icons/pi";
@@ -11,6 +10,8 @@ import { addEvent, selectEvents } from '../../features/eventsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const EventForm = () => {
@@ -31,7 +32,7 @@ const [visibilityAnimation, setVisibilityAnimation]=useState(true);
 const [selectedStartDate, setSelectedStartDate] = useState(new Date());
 const [selectedEndDate, setSelectedEndDate] = useState(new Date());
 const [isLoading,setIsLoading]=useState(false);
-const [showAnimation,setShowAnimation]=useState(true);
+const [submittingEvent,setSubmittingEvent]=useState(false);
 const eventInfo=useSelector(selectEvents);
 
 const checkBoxRef=useRef();
@@ -42,6 +43,16 @@ const eventCapacityRef=useRef();
 const eventHost=useRef();
 
 const dispatch=useDispatch();
+const notify = () => toast('Event Created!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
 
 const handleChangeVisibilty=() => {
     setVisibilityAnimation(false)
@@ -70,7 +81,10 @@ setEventImage(imageSelected);
 }
 useEffect(()=>{
 if(isLoading==true) {
-
+    setSubmittingEvent(true);
+}
+else if(isLoading==false) {
+    setSubmittingEvent(false);
 }
 },[isLoading])
   const handleSubmit =e=>{
@@ -80,6 +94,17 @@ setIsLoading(true);
 const eventStartDay=(startDateEvent[0]);
 dispatch(addEvent({hostName,eventChecked, eventName, eventLocation, eventTicket, eventCapacity, eventVisibility,eventStartDate,eventStartTime,eventStartDay,eventEndDate,eventEndTime,eventEndDay,gmt,imageEvent}));
 setIsLoading(false);
+notify();
+eventHost.current.value=="";
+checkBoxRef.current.checked=false;
+eventNameRef.current.value="";
+eventTicketRef.current.value="Free";
+eventCapacityRef.current.value="Unlimited";
+eventHost.current.value="";
+eventLocationRef.current.value="";
+setVisibilityValue("Public");
+setSelectedStartDate(new Date());
+setSelectedEndDate(new Date());
     },4000)
     const hostName=eventHost.current.value;
     const eventChecked=checkBoxRef.current.checked;
@@ -200,10 +225,12 @@ const gmt=(endDateEvent[5]+" "+endDateEvent[6]+" "+endDateEvent[7]+" "+endDateEv
   </div>
 </div>
 </div>
-<button type="submit" className='bg-black text-white submitbtnevent rounded-lg py-2 hover:bg-stone-600 hover:cursor-pointer'>
-{/* {showAnimation ?  <SyncLoader color="#36d7b7" /> :<span>Create Event</span> } */}
-Create Event
+<button type="submit" className='bg-black text-white submitbtnevent rounded-lg py-2 hover:bg-stone-600 hover:cursor-pointer' 
+>
+{submittingEvent ?  <span>Submitting...</span> :<span>Create Event</span> }
+{/* Create Event */}
 </button>
+  <ToastContainer />
 
 </div>
 <div>
