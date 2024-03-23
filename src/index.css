@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Montserrat;
+  line-height: 1.5;
+  
+
+  color-scheme: light dark;
+
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+color: rgb(168 162 158);
+  background: #fff;
+  margin: 0;
+  display: flex;
+ 
+  min-width: 320px;
+  min-height: 100vh;
+}
+.submitbtnevent{
+  width: -webkit-fill-available;
+}
+.eventBannerImg{max-width: 200px; max-height: 200px; height: 100%; width: 100%;object-fit: contain;border: 1px solid #c9c9c9; border-radius: 0.5rem;}
+.eventname, .eventLocation {background: transparent; border: none; font-size: 1.5rem; font-weight: 600;}
+.eventname:focus, .eventLocation:focus,.inputTicket:focus,.inputCapacity:focus{outline: none;}
+.eventname::placeholder, .eventLocation::placeholder{font-size: 1.5rem; font-weight: 600;}
+.iconEvent{cursor: pointer;}
+.inputTicket, .inputCapacity{max-width: 130px;padding: 0.1rem 0.5rem; position: absolute; right: 0; padding-right: 1.5rem;}
+.editIcon{margin-left: 0.25rem;}
+.visibilitySpan {
+  transition: transform 0.5s ease; /* Define transition for transform property */
+}
+.starteventinputs input {max-width: 40px; padding: 0.1rem 0rem;background: none;}
+.starteventinputs input:focus{outline: none;}
+.inputCapacity{border: 1px solid #ccc; padding: 0.2rem; border-radius: 5px;}
+.imgEvent{max-width: 300px; height: 300px; object-fit: contain;transition: transform 1s ease;}
+.imgEvent:hover{transform: scale(1.1);}
+.eventoptionimg{max-width: 100px;max-height: 150px; object-fit: cover;}
+.eventContainer{background: rgb(255,255,255);  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(174,252,255,0.45719537815126055) 66%);}
+.evetnamelist{word-break: break-all; max-width: 400px;}
+.eventHostNameInput{max-width: 150px;}
+.visibilityAnimation {
+  animation: fadeInOut 0.5s ease; /* Apply animation */
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
