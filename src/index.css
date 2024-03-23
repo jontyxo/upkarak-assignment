@@ -51,7 +51,7 @@ color: rgb(168 162 158);
   animation: fadeInOut 0.5s ease; /* Apply animation */
 }
 @media screen and (max-width:576px){
-  .form{flex-direction: column;}
+  form{flex-direction: column;}
 }
 
 
