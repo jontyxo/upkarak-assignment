@@ -50,6 +50,10 @@ color: rgb(168 162 158);
 .visibilityAnimation {
   animation: fadeInOut 0.5s ease; /* Apply animation */
 }
+@media screen and (max-width:576px){
+  .form{flex-direction: column;}
+}
+
 
 @keyframes fadeInOut {
   0% { opacity: 0; }

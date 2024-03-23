@@ -7,8 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const EventListings = () => {
     const navigate=useNavigate();
-const eventInfo=    useSelector(selectEvents);
-console.log(eventInfo)
+const eventInfo=useSelector(selectEvents);
   return (
     <>
     <div className="text-left">

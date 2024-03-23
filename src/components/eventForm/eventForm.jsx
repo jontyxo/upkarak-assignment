@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import DatePicker from 'react-datepicker';
 import { CiCalendar,CiLocationOn  } from "react-icons/ci";
 import { LuTicket } from "react-icons/lu";
 import { MdOutlineReduceCapacity,MdOutlineVisibility,MdApproval,MdOutlineEdit,MdArrowDropUp, MdArrowDropDown } from "react-icons/md";
+import SyncLoader from "react-spinners/SyncLoader";
 import { TiTick } from "react-icons/ti";
 import { SiGooglecalendar } from "react-icons/si";
 import { PiUserFill } from "react-icons/pi";
@@ -14,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 const EventForm = () => {
     const navigate=useNavigate();
-    
+
     const image1="https://res.cloudinary.com/jonty-mern/image/upload/v1711170894/e5_pkl5dh.jpg";
     const image2="https://res.cloudinary.com/jonty-mern/image/upload/v1711170895/e4_pdjy2t.jpg";
     const image3="https://res.cloudinary.com/jonty-mern/image/upload/v1711170895/e3_q7hxdh.jpg";
@@ -29,8 +30,8 @@ const [visibilityValue,setVisibilityValue]=useState("Public");
 const [visibilityAnimation, setVisibilityAnimation]=useState(true);
 const [selectedStartDate, setSelectedStartDate] = useState(new Date());
 const [selectedEndDate, setSelectedEndDate] = useState(new Date());
-
-
+const [isLoading,setIsLoading]=useState(false);
+const [showAnimation,setShowAnimation]=useState(true);
 const eventInfo=useSelector(selectEvents);
 
 const checkBoxRef=useRef();
@@ -67,12 +68,18 @@ else if(field=="capacity"){
 const handleImageChange=(imageSelected)=>{
 setEventImage(imageSelected);
 }
+useEffect(()=>{
+if(isLoading==true) {
 
+}
+},[isLoading])
   const handleSubmit =e=>{
     e.preventDefault();
+setIsLoading(true);
     setTimeout(()=>{
-const eventStartDay=(startDateEvent[0])
+const eventStartDay=(startDateEvent[0]);
 dispatch(addEvent({hostName,eventChecked, eventName, eventLocation, eventTicket, eventCapacity, eventVisibility,eventStartDate,eventStartTime,eventStartDay,eventEndDate,eventEndTime,eventEndDay,gmt,imageEvent}));
+setIsLoading(false);
     },4000)
     const hostName=eventHost.current.value;
     const eventChecked=checkBoxRef.current.checked;
@@ -82,7 +89,7 @@ dispatch(addEvent({hostName,eventChecked, eventName, eventLocation, eventTicket,
     let eventCapacity=eventCapacityRef?.current?.value || 'Unlimited';
     const eventVisibility=visibilityValue
 const startDateEvent=selectedStartDate.toString().split(" ");
-console.log(startDateEvent)
+
 const eventStartDate=(startDateEvent[1] + " "+ startDateEvent[2]+ " " + startDateEvent[3]);
 const eventStartTime=(startDateEvent[4]);
 const eventStartDay=(startDateEvent[0]);
@@ -193,7 +200,10 @@ const gmt=(endDateEvent[5]+" "+endDateEvent[6]+" "+endDateEvent[7]+" "+endDateEv
   </div>
 </div>
 </div>
-<button type="submit" className='bg-black text-white submitbtnevent rounded-lg py-2 hover:bg-stone-600 hover:cursor-pointer'>Create Event</button>
+<button type="submit" className='bg-black text-white submitbtnevent rounded-lg py-2 hover:bg-stone-600 hover:cursor-pointer'>
+{/* {showAnimation ?  <SyncLoader color="#36d7b7" /> :<span>Create Event</span> } */}
+Create Event
+</button>
 
 </div>
 <div>
@@ -205,6 +215,7 @@ const gmt=(endDateEvent[5]+" "+endDateEvent[6]+" "+endDateEvent[7]+" "+endDateEv
 <img src={image4} alt="event-image" className='eventoptionimg m-[.8rem] cursor-pointer' onClick={()=>handleImageChange(image4) }/>
 <img src={image5} alt="event-image" className='eventoptionimg m-[.8rem] cursor-pointer' onClick={()=>handleImageChange(image5)} />
 </div>
+<span className="text-lg"><span className="text-red-400">* </span>Select an appropriate image</span>
 </div>
         </form>
     </div>
