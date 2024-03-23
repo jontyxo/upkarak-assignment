@@ -20,12 +20,12 @@ const eventInfo=useSelector(selectEvents);
         <div className="flex flex-col px-[4rem] ">
         {eventInfo.length!=0?    eventInfo.map((event, index) => (
     <React.Fragment key={index}>
-    <div className="flex  my-[2rem]">
-        <div className="flex flex-col  mr-[4rem] text-left">
+    <div className="flex my-[2rem] lg:flex-row flex-col ">
+        <div className="flex flex-col  mr-[4rem] text-left lg:px-0 px-[1rem]">
             <span className="font-semibold text-stone-600 text-xl">{event.eventStartDate}</span>
             <span className="text-xl">{event.eventStartDay}</span>
         </div>
-        <div className="flex bg-white py-[1rem] px-[2rem] mr-[1rem] rounded-2xl">
+        <div className="flex sm:flex-row flex-col bg-white py-[1rem] lg:px-[2rem] px-[1rem] mr-[1rem] rounded-2xl">
             <div className="flex flex-col mr-[2rem] text-left">
             <div className="flex items-center text-xl pb-[0.5rem]"><CiClock2  color='#222'/> <span className="pl-2">{event.eventStartTime.slice(0,5)}</span></div>
                 <span className="text-2xl text-stone-700 font-semibold evetnamelist pb-[0.5rem]">{event.eventName}</span>
